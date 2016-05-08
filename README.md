@@ -1,2 +1,6 @@
 # learn_python
-Where I keep code written for tutorial exercises, or cyber-dojos
+This is where I keep code written for:
+
+- tutorial exercises
+- cyber-dojos
+
