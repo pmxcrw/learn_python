@@ -21,8 +21,7 @@ class Yatzy(object):
             return 20
         
         elif self.category == "yatzy":
-            roll = np.array(self.roll)
-            if roll.max() == roll.min():
+            if min(self.roll) == max(self.roll):
                 return 50
             else:
                 return 0
@@ -35,8 +34,9 @@ class Yatzy(object):
             return score
         
         elif self.category in {"pairs", "three of a kind", "four of a kind"}:
-            for i in range(max(self.roll), 0, -1):
-                count = sum([die == i for die in self.roll])
+            roll = np.array(self.roll)
+            for i in range(roll.max(), roll.min()-1, -1):
+                count = sum(roll == i)
                 if count == 2 and self.category == "pairs":
                     return 2 * i
                 elif count == 3 and self.category == "three of a kind":
@@ -47,12 +47,11 @@ class Yatzy(object):
                 return 0
         
         elif self.category == "two pairs":
-            for i in range(max(self.roll), 0, -1):
-                higher_count = sum([die == i for die in self.roll])
-                if higher_count == 2:
-                    for j in range(i-1, 0, -1):
-                        lower_count = sum([die == j for die in self.roll])
-                        if lower_count == 2:
+            roll = np.array(self.roll)
+            for i in range(roll.max(), roll.min()-1, -1):
+                if sum(roll == i) == 2:
+                    for j in range(i-1, roll.min()-1, -1):
+                        if sum(roll == j) == 2:
                             return 2 * (i + j)
             else:
                 return 0
