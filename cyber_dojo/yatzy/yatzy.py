@@ -1,3 +1,6 @@
+import numpy as np
+
+
 class Yatzy(object):
         
     def __init__(self, roll, category):
@@ -18,12 +21,8 @@ class Yatzy(object):
             return 20
         
         elif self.category == "yatzy":
-            same_nums = True
-            for i in range(len(self.roll) - 1):
-                if self.roll[i] != self.roll[i+1]:
-                    same_nums = False
-                    break
-            if same_nums:
+            roll = np.array(self.roll)
+            if roll.max() == roll.min():
                 return 50
             else:
                 return 0
